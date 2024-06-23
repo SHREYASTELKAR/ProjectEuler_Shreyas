@@ -19,5 +19,23 @@ def digit_cancelling_fractions():
             denominator += 1
         numerator += 1
 
+def nth_power():
+    result = 0
+    THRESHOLD = 100000
+    power = 1
+    while power < 50:
+        num_found = False
+        for num in range(1, THRESHOLD):
+            if len(str(num ** power)) == power:
+                   result += 1
+                   num_found = True
+        if not num_found:
+            break
+        power += 1
+
+    return result
+
 if __name__ == "__main__":
-    print(digit_cancelling_fractions())
+    #print(digit_cancelling_fractions())
+    #print(nth_power())
+    pass

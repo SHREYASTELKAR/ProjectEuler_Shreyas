@@ -649,7 +649,7 @@ def recip_cycles():
 
 def factors1(n):
     """Return the list of proper divisors of n (excluding n itself)."""
-    return [i for i in range(1, n//2 + 1) if n % i == 0]
+    return [i for i in range(1, n //2 + 1) if n % i == 0]
 
 def amicable_numbers():
     total = 0
@@ -729,6 +729,7 @@ def shapes_nums():
                 
 def is_abundant(n):
     return sum(factors1(n)) > n
+
 def abundant_sums():
     total = 0
     for a in range(5000, 7000):
@@ -739,6 +740,24 @@ def abundant_sums():
                 if sum_abund > 28123:
                     return total
                 total += a + b
+
+def non_abundant_sums():
+    LIMIT = 28123
+    result = 0
+
+    abundant_numbers = [x for x in range(12, LIMIT + 1) if is_abundant(x)]
+    abundant_sums = set()
+    
+    for i in range(len(abundant_numbers)):
+        for j in range(i, len(abundant_numbers)):
+            abundant_sum = abundant_numbers[i] + abundant_numbers[j]
+            if abundant_sum <= LIMIT:
+                abundant_sums.add(abundant_sum)
+    
+    non_abundant_sum = sum(x for x in range(1, LIMIT + 1) if x not in abundant_sums)
+    
+    return non_abundant_sum
+        
 
 def is_pentagonal(num):
     for p_i in range(1, num):
@@ -790,7 +809,8 @@ def num_letter():
     return total
                 
 if __name__=="__main__":
-    
+
+    print(non_abundant_sums())
     #print(mult_3and5())
     # print(fibonacci())
     #print(prime_fac())
@@ -981,4 +1001,4 @@ if __name__=="__main__":
 #print(shapes_nums())
 #print(abundant_sums())
 #print(pent_sum())
-print(num_letter())
+#print(num_letter())
