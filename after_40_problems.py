@@ -1,3 +1,6 @@
+import itertools
+from ProjectEuler import is_prime
+
 def digit_cancelling_fractions():
     numerator, denominator = 10 , 11
     
@@ -20,6 +23,12 @@ def digit_cancelling_fractions():
         numerator += 1
 
 def nth_power():
+    """ Returns the number of
+    values in which the length
+    of the result equals the
+    power of the number
+    """
+    
     result = 0
     THRESHOLD = 100000
     power = 1
@@ -35,7 +44,51 @@ def nth_power():
 
     return result
 
+def get_primes_to_limit(limit):
+    """ Get all primes up till
+    the limit
+    """
+
+    result = [num for num in range(2, limit + 1) if is_prime(num)]
+
+    return result
+    
+def retrieve_concatenated_pair_primes(primes):
+    """Takes in a combination of 5
+    primes and checks if the concatenation
+    of each permutation is prime.
+    
+    Returns the sum of the 5 primes
+    which all have this behavior.
+    """
+    
+    prime_combinations = itertools.combinations(list(primes), 2)
+    #print(list((prime_combinations)))
+    
+    for prime_combination in list(prime_combinations):
+        #print(prime_combination)
+        first_prime, second_prime = prime_combination
+        if not (is_prime(int(str(first_prime) + str(second_prime))) and is_prime(int(str(second_prime) + str(first_prime)))):
+            return None
+
+    return sum(primes)
+            
+def find_prime_pair_sets():
+
+    LIMIT = 10000
+    primes = get_primes_to_limit(LIMIT)
+
+    primes_set = list(itertools.combinations(primes, 5))
+
+    for five_primes in primes_set:
+        if sum_primes := retrieve_concatenated_pair_primes(five_primes):
+            return sum_primes
+    return None
+        
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
+
+    # Too Slow
+    #print(find_prime_pair_sets())
     pass
