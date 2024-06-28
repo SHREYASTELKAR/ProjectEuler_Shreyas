@@ -72,7 +72,8 @@ def retrieve_concatenated_pair_primes(primes):
             return None
 
     return sum(primes)
-            
+
+
 def find_prime_pair_sets():
 
     LIMIT = 10000
@@ -84,11 +85,32 @@ def find_prime_pair_sets():
         if sum_primes := retrieve_concatenated_pair_primes(five_primes):
             return sum_primes
     return None
-        
+
+def goldbachs_conjecture():
+    # TODO: Fix and debug
+    
+    LIMIT = 1001
+    for odd_number in range(7, LIMIT, 2): 
+        result_found = False
+        for num in range(2, odd_number):
+            if is_prime(num):
+                diff = odd_number - num
+                power_num = 0
+                while 2 * power_num**2 <= diff:
+                    if 2 * power_num**2 == diff:
+                        result_found = True
+                        break
+                    power_num += 1
+            if result_found:
+                break
+        if not result_found:
+            return odd_number
+    return None
+            
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
 
     # Too Slow
     #print(find_prime_pair_sets())
-    pass
+    print(goldbachs_conjecture())
