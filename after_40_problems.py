@@ -87,12 +87,6 @@ def find_prime_pair_sets():
     return None
 
 def goldbachs_conjecture():
-    """
-    odd: 7
-    num: 2
-    dif : 5
-    power: 1
-    """
     LIMIT = 10000
     for odd_number in range(7, LIMIT, 2):
         if not is_prime(odd_number):
@@ -112,7 +106,39 @@ def goldbachs_conjecture():
             if not result_found:
                 return odd_number
     return None
-            
+
+# TODO
+def lattice_paths():
+    """
+    While x and y are less than (dimension)
+    scenario:
+    x = 1, y = 0
+    x = 2, y = 0
+    """
+    # dimension = 2
+    # x, y = 0
+    # while x < dimension and y < dimension:
+    pass
+
+def triangle_num(num):
+    result = (num * (num + 1))/2
+    return int(result) if int(result) == result else None
+
+def is_pentagonal(num):
+    result = (1 + (1 + 24 * num) ** 0.5) / 6
+    return int(result) if int(result) == result else None
+
+def is_hexagonal(num):
+    result = (1 + (1 + 8 * num) ** 0.5) / 4
+    return int(result) if int(result) == result else None
+
+def traingle_pentagonal_hexagonal():
+    for index in range(286, 100000):
+        if result := triangle_num(index):
+            if is_pentagonal(result) and is_hexagonal(result):
+                return result
+    return None
+    
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
@@ -120,4 +146,5 @@ if __name__ == "__main__":
     # Too Slow
     #print(find_prime_pair_sets())
     #print(goldbachs_conjecture())
+    #print(traingle_pentagonal_hexagonal())
     pass
