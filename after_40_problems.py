@@ -138,13 +138,53 @@ def traingle_pentagonal_hexagonal():
             if is_pentagonal(result) and is_hexagonal(result):
                 return result
     return None
+
+def quad_primes():
+    """
+    Find max primes for a quadratic formula
+    and find the product of a and b for
+    a <= 1000, b <= 1000 and
+    n2 + an + b
+
+    Brute force:
+    For every a and b, get the number of consecutive primes.
+    store the max consecutive primes and the product of that. 
+    """
+
+    def quad_formula(n, a, b) -> int:
+        return n**2 + a*n + b
     
+    def get_consecutive_primes(a, b) -> int:
+        n = 0
+        result = 0
+        while True:
+            cur_value = quad_formula(n, a, b)
+            if cur_value <= 0 or not is_prime(cur_value):
+                break
+            result += 1
+            n += 1
+
+        return result
+    
+    max_consecutive_primes = 0
+    product_a_b_max_primes = 0
+    for a in range(-1001, 1001):
+        for b in range(-1001, 1001):
+            num_consecutive = get_consecutive_primes(a, b)
+            if num_consecutive > max_consecutive_primes:
+                product_a_b_max_primes = a * b
+                max_consecutive_primes = num_consecutive
+                
+    return product_a_b_max_primes
+            
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
+    # print(quad_primes())
 
     # Too Slow
     #print(find_prime_pair_sets())
     #print(goldbachs_conjecture())
     #print(traingle_pentagonal_hexagonal())
+    
     pass

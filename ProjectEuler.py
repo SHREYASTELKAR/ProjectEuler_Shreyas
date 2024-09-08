@@ -286,9 +286,6 @@ def large_sum(inp2):
 
     return str(total_sum)[:10]
 
-def quad_primes():
-    pass
-
 def name_scores():
     with open('names.txt', 'r') as file:
         file_contents = file.read()
