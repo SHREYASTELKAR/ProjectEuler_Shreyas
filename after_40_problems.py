@@ -159,7 +159,7 @@ def quad_primes():
         result = 0
         while True:
             cur_value = quad_formula(n, a, b)
-            if cur_value <= 0 or not is_prime(cur_value):
+            if not is_prime(cur_value):
                 break
             result += 1
             n += 1
