@@ -225,17 +225,15 @@ def three_arithmetic_seq(nums: list) -> bool:
     from itertools import combinations
     
     res = None
-    if len(nums) < 3:
-        return res
-
-    # Find any arithmetic sequence
-    for a, b, c in combinations(nums, 3):
-        # Sort the numbers to simplify the arithmetic sequence check
-        a, b, c = sorted([a, b, c])
-        
-        # Check if they form an arithmetic sequence
-        if b - a == c - b:
-            return [a, b, c]
+    
+    if len(nums) >= 3:
+        # print(nums)
+        for a, b, c in combinations(nums, 3):
+            # Sort the numbers to simplify the arithmetic sequence check
+            a, b, c = sorted([a, b, c])
+            # Check if they form an arithmetic sequence
+            if b - a == c - b:
+                res = [a, b, c]
 
     return res
 
@@ -248,8 +246,8 @@ def prime_permutations():
 
     from itertools import permutations
 
-    result = None
-    
+    result = []
+
     for num in range(1000, 10000):
         digits = list(str(num))
     
@@ -260,31 +258,28 @@ def prime_permutations():
         str_perms = [''.join(perm) for perm in digit_perms if perm[0] != '0']
         perms = sorted([int(perm) for perm in str_perms])
             
-        # Check if nums are prime
-        not_found = False
-        for perm in perms:
-            if not is_prime(perm):
-                not_found = True
-                break
-
+        # Filter only primes
+        perms = list(filter(is_prime, perms))
+        
         # Check if any nums are in an arithmetic sequence
+        seq = three_arithmetic_seq(perms)
 
-        seq = None
-        if not (seq := three_arithmetic_seq(perms)):
-            not_found = True
+        if seq:
+            # arithmetic seq found, concatenate values
+            value = ''.join(map(str, seq))
+            result.append(value)
 
-        if not not_found and seq:
-            # found value, concatenate values
-            result = ''.join(map(str, seq))
-
-    return result
+    # return the value that is not `148748178147`
+    for res in result:
+        if res != "148748178147":
+            return res
 
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
     # print(quad_primes())
     # print(pentagon_numbers())
-    print(prime_permutations())
+    # print(prime_permutations())
     
     # Too Slow
     #print(find_prime_pair_sets())
