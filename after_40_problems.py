@@ -251,7 +251,7 @@ def prime_permutations():
     for num in range(1000, 10000):
         digits = list(str(num))
     
-        # Generate permutations and filter out those starting with '0'
+        # Generate permutations
         digit_perms = set(permutations(digits, 4))
     
         # Convert permutations to integers and filter out those starting with '0'
@@ -269,10 +269,95 @@ def prime_permutations():
             value = ''.join(map(str, seq))
             result.append(value)
 
-    # return the value that is not `148748178147`
     for res in result:
         if res != "148748178147":
+            # return the value that is not `148748178147`
             return res
+
+def pandigital_products():
+    """
+    Find all multiplicant, multiplier, and product
+    that have all of the pandigital products. 
+    """
+    pass
+
+def circular_primes():
+    """
+    Rotations of a number:
+    
+    """
+    
+    from itertools import permutations
+    
+    RANGE = 1000000
+    prime_rotations = set()
+    
+    for num in range(2, RANGE):
+        if num in prime_rotations:
+            continue
+
+        # Get all rotations of a number
+        str_num = str(num)
+        perms  = [int(str_num[i:] + str_num[:i]) for i in range(len(str_num))]
+
+        non_prime_found = False
+        for perm in perms:
+            if not is_prime(perm):
+                non_prime_found = True
+                break
+
+        if not non_prime_found:
+            for permutation in perms:
+                prime_rotations.add(permutation)
+
+    return len(prime_rotations)
+
+def sieve_of_eratosthenes(n):
+    primes = [True] * (n + 1)  # Step 1: Initialize all entries as True
+    p = 2
+    
+    # Step 2: Start with the first prime number
+    while p * p <= n:
+        # If primes[p] is still True, it is a prime
+        if primes[p] == True:
+            # Mark all multiples of p from p*p to n as False
+            for i in range(p * p, n + 1, p):
+                primes[i] = False
+        p += 1
+
+    # Step 3: Collect all prime numbers
+    prime_numbers = [p for p in range(2, n + 1) if primes[p]]
+    return prime_numbers
+
+def consecutive_primes():
+    """
+    consecutive prime sum under 1 million that
+    results in the larges prime number.
+
+    Starting point can be anywhere.
+
+    sliding window
+    """
+    RANGE = 1000000
+    primes = sieve_of_eratosthenes(RANGE)
+    prime_set = set(primes)  # Use a set for O(1) prime lookup
+    max_length = 0
+    max_prime = 0
+
+    # Use two pointers (start, end) to find the longest sum of consecutive primes
+    for start in range(len(primes)):
+        current_sum = 0
+        for end in range(start, len(primes)):
+            current_sum += primes[end]
+            if current_sum > RANGE:
+                break
+            current_length = end - start + 1
+            if current_sum in prime_set and current_length > max_length:
+                # Calculate max for new max
+                max_length = current_length
+                max_prime = current_sum
+
+    return max_prime
 
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
@@ -280,7 +365,10 @@ if __name__ == "__main__":
     # print(quad_primes())
     # print(pentagon_numbers())
     # print(prime_permutations())
-    
+    # print(circular_primes())
+    # print(consecutive_primes())
+    # print(consecutive_primes())
+
     # Too Slow
     #print(find_prime_pair_sets())
     #print(goldbachs_conjecture())

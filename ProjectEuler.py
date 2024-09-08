@@ -988,7 +988,7 @@ if __name__=="__main__":
 #print(triangle_nums())
 #print(get_prime_factors())
 #print((pandig_prime()))
-#print(consec_primes())
+# print(consec_primes())
 #print(pand_multiples())
 #print(recip_cycles())
 #print(amicable_numbers())
