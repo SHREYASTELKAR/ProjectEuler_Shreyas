@@ -216,12 +216,75 @@ def pentagon_numbers():
                 
     return result
 
+
+def three_arithmetic_seq(nums: list) -> bool:
+    """
+    Checks if any three numbers in the list are in an
+    arithmetic sequence.
+    """
+    from itertools import combinations
+    
+    res = None
+    if len(nums) < 3:
+        return res
+
+    # Find any arithmetic sequence
+    for a, b, c in combinations(nums, 3):
+        # Sort the numbers to simplify the arithmetic sequence check
+        a, b, c = sorted([a, b, c])
         
+        # Check if they form an arithmetic sequence
+        if b - a == c - b:
+            return [a, b, c]
+
+    return res
+
+def prime_permutations():
+    """
+    For each 4 digit number, check if
+    permutations increase by a certain number and
+    are prime.
+    """
+
+    from itertools import permutations
+
+    result = None
+    
+    for num in range(1000, 10000):
+        digits = list(str(num))
+    
+        # Generate permutations and filter out those starting with '0'
+        digit_perms = set(permutations(digits, 4))
+    
+        # Convert permutations to integers and filter out those starting with '0'
+        str_perms = [''.join(perm) for perm in digit_perms if perm[0] != '0']
+        perms = sorted([int(perm) for perm in str_perms])
+            
+        # Check if nums are prime
+        not_found = False
+        for perm in perms:
+            if not is_prime(perm):
+                not_found = True
+                break
+
+        # Check if any nums are in an arithmetic sequence
+
+        seq = None
+        if not (seq := three_arithmetic_seq(perms)):
+            not_found = True
+
+        if not not_found and seq:
+            # found value, concatenate values
+            result = ''.join(map(str, seq))
+
+    return result
+
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
     # print(quad_primes())
-    print(pentagon_numbers())
+    # print(pentagon_numbers())
+    print(prime_permutations())
     
     # Too Slow
     #print(find_prime_pair_sets())

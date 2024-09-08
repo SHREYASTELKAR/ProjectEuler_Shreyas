@@ -353,7 +353,7 @@ def self_powers():
 
 from itertools import permutations
 
-def number_permutations(number):
+def number_permutations(number: str):
     # Convert the number to a list of its digits
     digits = [digit for digit in number]
     
