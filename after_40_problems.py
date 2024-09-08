@@ -176,12 +176,53 @@ def quad_primes():
                 max_consecutive_primes = num_consecutive
                 
     return product_a_b_max_primes
+
+def num_spiral_diagonals():
+    # cur_sum = 0
+    # spacing = 1
+    # dimension = 1
+    # spacing = 0 
+    # while dimension != 1001:
+    #     spacing += 2
+    #     for num in range(1, 10000))
+    #     cur_sum += 
+
+    pass
+
+def generate_pentagon_numbers(num_range: int):
+    pentagonal_numbers = [pentagon_num for pentagon_num in range(num_range) if is_pentagonal(pentagon_num)]
+
+    return pentagonal_numbers
             
+def pentagon_numbers():
+    """
+    For two pentagon numbers that is a pentagon number
+    when summed up or subtracted. Store the minimum for
+    a large number of pentagon numbers.
+
+    TODO: optimize due to large range.
+    
+    Solution: 5482660
+    """
+    RANGE = 10000000
+    pentagon_numbers = generate_pentagon_numbers(RANGE)
+    result = 0
+
+    for num1 in pentagon_numbers:
+        for num2 in pentagon_numbers:
+            if num1 + num2 in pentagon_numbers and abs(num1 - num2) in pentagon_numbers:
+                diff = abs(num1 - num2)
+                result = min(result, diff) if result != 0 else diff
+                
+    return result
+
+        
 if __name__ == "__main__":
     #print(digit_cancelling_fractions())
     #print(nth_power())
     # print(quad_primes())
-
+    print(pentagon_numbers())
+    
     # Too Slow
     #print(find_prime_pair_sets())
     #print(goldbachs_conjecture())
